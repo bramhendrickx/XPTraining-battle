@@ -66,7 +66,7 @@ namespace Battle.Tests
             // When
             var outcome = attacker.Attack(defender);
             // Then
-            outcome.Should().Be(attacker.Name);
+            outcome.Should().Be(attacker);
         }
 
         [Theory]
@@ -82,7 +82,7 @@ namespace Battle.Tests
             // When
             var outcome = attacker.Attack(defender);
             // Then
-            outcome.Should().Be(attacker.Name);
+            outcome.Should().Be(attacker);
         }
 
 
@@ -108,7 +108,7 @@ namespace Battle.Tests
             // When
             var outcome = attacker.Attack(defender);
             // Then
-            outcome.Should().Be(winner);
+            outcome.Should().Be(winner == "attacker" ? attacker : defender);
         }
 
 

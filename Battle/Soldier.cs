@@ -35,13 +35,13 @@ namespace Battle
         private bool IsBlank(string name) => string.IsNullOrEmpty(name?.Trim());
 
 
-        public string Attack(Soldier defender)
+        public Soldier Attack(Soldier defender)
         {
             if (defender.Weapon.DamagePoints > Weapon.DamagePoints)
             {
-                return defender.Name;
+                return defender;
             }
-            return Name;
+            return this;
         }
     }
 }
