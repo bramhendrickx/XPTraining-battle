@@ -5,15 +5,25 @@ namespace Battle
     public class Soldier
     {
         public string Name { get; }
-        public string Weapon { get; set; }
+        private Weapon Weapon { get; set; }
 
         public Soldier(string name)
         {
             ValidateNameisNotBlank(name);
-            Weapon = "Bare fist";
+            Weapon = new Weapon("BareFist");
+            Name = name;
+        }
+        public Soldier(string name, string weaponType)
+        {
+            ValidateNameisNotBlank(name);
+            Weapon = new Weapon(weaponType);
             Name = name;
         }
 
+        public string GetWeaponType()
+        {
+            return Weapon.Type;
+        }
         private void ValidateNameisNotBlank(string name)
         {
             if (IsBlank(name))
@@ -23,7 +33,15 @@ namespace Battle
         }
 
         private bool IsBlank(string name) => string.IsNullOrEmpty(name?.Trim());
-        
-        
+
+
+        public string Attack(Soldier defender)
+        {
+            if (defender.Weapon.DamagePoints > Weapon.DamagePoints)
+            {
+                return defender.Name;
+            }
+            return Name;
+        }
     }
 }

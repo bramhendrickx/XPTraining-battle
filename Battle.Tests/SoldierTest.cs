@@ -34,8 +34,81 @@ namespace Battle.Tests
 
             // When
             var soldier = new Soldier(name);
+            var weapontype = soldier.GetWeaponType();
             // Then
-            soldier.Weapon.Should().Be("Bare fist");
+            weapontype.Should().BeEquivalentTo("BareFist");
+        }
+
+        [Theory]
+        [InlineData("Axe")]
+        [InlineData("Sword")]
+        [InlineData("Spear")]
+        [InlineData("BareFist")]
+        public void Soldier_ASoldierHasAWeaponType_(string weaponType)
+        {
+            // Given
+            var name = "Jos";
+
+            // When
+            var soldier = new Soldier(name, weaponType);
+            var weapontype = soldier.GetWeaponType();
+            // Then
+            weapontype.Should().BeEquivalentTo(weaponType);
+        }
+
+        [Fact]
+        public void Soldier_TwoDefaultSoldiers_Fight_AttackerWins()
+        {
+            // Given
+            var attacker = new Soldier("Jos");
+            var defender = new Soldier("Daniel");
+
+            // When
+            var outcome = attacker.Attack(defender);
+            // Then
+            outcome.Should().Be(attacker.Name);
+        }
+
+        [Theory]
+        [InlineData("Axe", "Axe")]
+        [InlineData("Spear", "Spear")]
+        [InlineData("Sword", "Sword")]
+        [InlineData("BareFist", "BareFist")]
+        public void Attack_AttackerHasSameWeaponAsDefender_AttackerWins(string attackerWeapon, string defenderWeapon)
+        {
+            // Given
+            var attacker = new Soldier("attacker", attackerWeapon);
+            var defender = new Soldier("defender", defenderWeapon);
+            // When
+            var outcome = attacker.Attack(defender);
+            // Then
+            outcome.Should().Be(attacker.Name);
+        }
+
+
+
+        [Theory]
+        [InlineData("Axe", "Sword", "attacker")]
+        [InlineData("Axe", "Spear", "attacker")]
+        [InlineData("Axe", "BareFist", "attacker")]
+        [InlineData("Sword", "Spear", "attacker")]
+        [InlineData("Sword", "BareFist", "attacker")]
+        [InlineData("Sword", "Axe", "defender")]
+        [InlineData("Spear", "Sword", "attacker")]
+        [InlineData("Spear", "BareFist", "attacker")]
+        [InlineData("Spear", "Axe", "defender")]
+        [InlineData("BareFist", "Spear", "defender")]
+        [InlineData("BareFist", "Sword", "defender")]
+        [InlineData("BareFist", "Axe", "defender")]
+        public void Attack_SoldierWithStrongestDamagepointsWins(string attackerWeapon, string defenderWeapon, string winner)
+        {
+            // Given
+            var attacker = new Soldier("attacker", attackerWeapon);
+            var defender = new Soldier("defender", defenderWeapon);
+            // When
+            var outcome = attacker.Attack(defender);
+            // Then
+            outcome.Should().Be(winner);
         }
 
 
