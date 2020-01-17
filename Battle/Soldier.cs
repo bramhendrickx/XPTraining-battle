@@ -4,9 +4,13 @@ namespace Battle
 {
     public class Soldier
     {
+        public string Name { get; }
+        public string Weapon { get; set; }
+
         public Soldier(string name)
         {
             ValidateNameisNotBlank(name);
+            Weapon = "Bare fist";
             Name = name;
         }
 
@@ -20,6 +24,6 @@ namespace Battle
 
         private bool IsBlank(string name) => string.IsNullOrEmpty(name?.Trim());
         
-        public string Name { get; }
+        
     }
 }

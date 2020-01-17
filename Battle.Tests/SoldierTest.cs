@@ -25,5 +25,20 @@ namespace Battle.Tests
              
             act.Should().Throw<ArgumentException>();
         }
+
+        [Fact]
+        public void Soldier_ASoldierHasAWeapon_DefaultIsBareFist()
+        {
+            // Given
+            var name = "Jos";
+
+            // When
+            var soldier = new Soldier(name);
+            // Then
+            soldier.Weapon.Should().Be("Bare fist");
+        }
+
+
+
     }
 }
